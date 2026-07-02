@@ -9,28 +9,8 @@ import numpy as np
 import xgboost as xgb
 
 from honeypot import is_honeypot
-from rank import build_memo, xgb_features_from_memo
+from rank import build_memo, xgb_features_from_memo, iter_candidates
 from scorer import jd_fit_score, recruitability_score
-
-
-def open_text(path):
-    return gzip.open(path, "rt", encoding="utf-8") if str(path).endswith(".gz") else open(path, "rt", encoding="utf-8")
-
-
-def iter_candidates(path):
-    path = Path(path)
-    with open_text(path) as f:
-        first = f.read(1)
-        f.seek(0)
-        if first == "[":
-            yield from json.load(f)
-            return
-
-        for line in f:
-            line = line.strip()
-            if not line:
-                continue
-            yield json.loads(line)
 
 
 def load_labels(path):

@@ -1,0 +1,19 @@
+team_name: "VictoryLap"
+primary_contact_name: ""
+primary_contact_email: ""
+primary_contact_phone: ""
+github_repository_url: ""
+sandbox_demo_link: ""
+ai_tools_declared:
+  - "Claude"
+  - "Gemini"
+  - "Codex"
+compute_environment_summary: "Windows 11, Python 3.11, 16GB RAM, CPU only"
+team_members: []
+methodology_summary: >
+  Two-stage pipeline. Stage 1: O(N) streaming heuristic filter scoring JD fit
+  (9 weighted sub-scores) and recruitability (23 behavioral signals via grouped
+  geometric means). Honeypot detection drops impossible profiles. Top 1000 kept
+  in a min-heap. Stage 2: pre-trained XGBRanker (LambdaMART, objective=rank:ndcg)
+  re-ranks top 1000 using 11 features. Top 100 output with fact-based reasoning.
+  No runtime API calls, no GPU, no network.

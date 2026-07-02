@@ -123,14 +123,14 @@ def recruitability_score(candidate):
             pass
             
     open_to_work = 1.0 if s.get("open_to_work_flag", False) else 0.6
-    views = min(1.0, s.get("profile_views_received_30d", 0) / 100.0)
+    views = max(0.05, min(1.0, s.get("profile_views_received_30d", 0) / 100.0))
     
     apps = s.get("applications_submitted_30d", 0)
     if 1 <= apps <= 15: apps_score = 1.0
     elif apps == 0: apps_score = 0.7
     else: apps_score = 0.5
     
-    response_rate = s.get("recruiter_response_rate", 0.0)
+    response_rate = max(0.05, s.get("recruiter_response_rate", 0.0))
     
     rt = s.get("avg_response_time_hours", 100)
     if rt <= 6: response_time = 1.0
@@ -145,8 +145,8 @@ def recruitability_score(candidate):
     else:
         avg_assessment = 0.5
         
-    connections = min(1.0, s.get("connection_count", 0) / 500.0)
-    endorsements = min(1.0, s.get("endorsements_received", 0) / 100.0)
+    connections = max(0.05, min(1.0, s.get("connection_count", 0) / 500.0))
+    endorsements = max(0.05, min(1.0, s.get("endorsements_received", 0) / 100.0))
     
     np_days = s.get("notice_period_days", 100)
     if np_days <= 30: notice = 1.0
@@ -177,9 +177,9 @@ def recruitability_score(candidate):
     elif gh >= 30: github = 0.8
     else: github = 0.6
     
-    search_app = min(1.0, s.get("search_appearance_30d", 0) / 200.0)
-    saved = min(1.0, s.get("saved_by_recruiters_30d", 0) / 20.0)
-    interview = s.get("interview_completion_rate", 0.0)
+    search_app = max(0.05, min(1.0, s.get("search_appearance_30d", 0) / 200.0))
+    saved = max(0.05, min(1.0, s.get("saved_by_recruiters_30d", 0) / 20.0))
+    interview = max(0.05, s.get("interview_completion_rate", 0.0))
     
     oar = s.get("offer_acceptance_rate", -1)
     if oar == -1: offer_accept = 0.5

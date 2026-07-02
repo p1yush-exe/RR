@@ -42,7 +42,7 @@ def is_honeypot(candidate):
             return True
             
     # Rule 5: temporal paradox
-    signup = candidate.get("signup_date")
+    signup = signals.get("signup_date")
     last_active = signals.get("last_active_date")
     if signup and last_active:
         try:
