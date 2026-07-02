@@ -8,9 +8,9 @@ venv/
 env/
 .env
 
-# Data files — never push the 465MB candidate pool
-candidates.jsonl
-candidates.jsonl.gz
+# Data files — never push the massive candidate pools
+*.jsonl
+*.json.gz
 *.csv
 !submission.csv
 
