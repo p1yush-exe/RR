@@ -16,7 +16,7 @@ env/
 sample_candidates.json
 
 # Generated model weights
-xgboost_model.json
+!xgboost_model.json
 
 # OS generated files
 .DS_Store
@@ -37,3 +37,4 @@ Thumbs.db
 *.md
 !README.md
 !strat.md
+!train.md

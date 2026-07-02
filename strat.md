@@ -20,7 +20,7 @@ Keyword matching is easily gamed (Keyword Stuffers). Instead, we heavily weight 
 ## 4. Ranking Methodology
 ### Retrieve, Score, Rank
 - **Stage 1 (Filter)**: Evaluates a candidate using `jd_fit_score` and `recruitability_score`. Only candidates passing honeypot checks are added to a size-1,000 min-heap.
-- **Stage 2 (Re-rank)**: Transforms the top 1,000 into an 11-dimension feature matrix and applies a pre-trained Learning-to-Rank ML model to predict optimal NDCG rankings.
+- **Stage 2 (Re-rank)**: Transforms the top 1,000 into an 11-dimension feature matrix and applies the bundled `xgboost_model.json` Learning-to-Rank model. The code keeps a defensive heuristic fallback, but the submitted repo includes the artifact.
 
 ### Models & Algorithms Used
 - **Offline**: GPT-4o / Claude (for generating 0-4 ground truth scores on a 2,000 candidate sample).
@@ -44,7 +44,7 @@ We implemented a strict `honeypot.py` filter that explicitly drops candidates wi
 2. Discard candidate if `is_honeypot()` returns True.
 3. Compute `jd_fit_score` and `recruitability_score`. Multiply them for `final_score`.
 4. Push `(final_score, candidate_id, memo_dict)` into a 1,000-size min-heap.
-5. After the pass, load `xgboost_model.json`.
+5. After the pass, load bundled `xgboost_model.json`.
 6. Extract 11 features from the 1,000 `memo_dict`s.
 7. Run `model.predict(X)`.
 8. Sort candidates by the new ML scores.
@@ -70,6 +70,6 @@ We implemented a strict `honeypot.py` filter that explicitly drops candidates wi
 - `rank.py` (Main entry point)
 - `scorer.py`, `honeypot.py`, `reasoning.py`, `constants.py`
 - `train_xgboost.py` (Offline training script)
-- `xgboost_model.json` (Model weights)
+- `xgboost_model.json` (Bundled model weights)
 - `README.md` & `strat.md`
 - Code Repository & Sandbox Link (TBD)
