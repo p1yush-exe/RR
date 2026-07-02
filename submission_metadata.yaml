@@ -1,19 +1,63 @@
+# ============================================================================
+# Team identity
+# ============================================================================
 team_name: "VictoryLap"
-primary_contact_name: ""
-primary_contact_email: ""
-primary_contact_phone: ""
-github_repository_url: ""
-sandbox_demo_link: ""
-ai_tools_declared:
+
+primary_contact:
+  name: "Piyush Malik"
+  email: "piyushmalik.work@gmail.com"
+  phone: "+91-7888937101"
+
+team_members:
+  - name: "Vaidik Bhardwaj"
+  - name: "Akshita Bhardwaj"
+  - name: "Piyush Malik"
+
+# ============================================================================
+# Code and reproducibility
+# ============================================================================
+github_repo: "https://github.com/p1yush-exe/RR"
+sandbox_link: "https://huggingface.co/spaces/p1yushpsi/RR"
+
+reproduce_command: "python reproduction_command.py --candidates ./candidates.jsonl --out ./team_VictoryLap.csv"
+
+# ============================================================================
+# Compute environment
+# ============================================================================
+compute:
+  platform: "Local Windows Box"
+  cpu_cores: 8
+  ram_gb: 16
+  python_version: "3.13"
+  os: "Windows 11"
+  uses_gpu_for_inference: false
+  has_network_during_ranking: false
+  pre_computation_required: true
+  pre_computation_time_minutes: 5
+
+# ============================================================================
+# AI tools declaration
+# ============================================================================
+ai_tools_used:
   - "Claude"
   - "Gemini"
-  - "Codex"
-compute_environment_summary: "Windows 11, Python 3.11, 16GB RAM, CPU only"
-team_members: []
-methodology_summary: >
-  Two-stage pipeline. Stage 1: O(N) streaming heuristic filter scoring JD fit
-  (9 weighted sub-scores) and recruitability (23 behavioral signals via grouped
-  geometric means). Honeypot detection drops impossible profiles. Top 1000 kept
-  in a min-heap. Stage 2: pre-trained XGBRanker (LambdaMART, objective=rank:ndcg)
-  re-ranks top 1000 using 11 features. Top 100 output with fact-based reasoning.
-  No runtime API calls, no GPU, no network.
+  - "OpenAI Codex"
+
+ai_usage_summary: |
+  Used Claude, Gemini, and Codex for code generation, logic building, pipeline debugging, and generating the offline XGBoost training pipeline. No real candidate data was sent to any LLM; everything was engineered directly.
+
+# ============================================================================
+# Approach summary (optional but recommended)
+# ============================================================================
+methodology_summary: |
+  Two-stage architecture. Stage 1 is an O(N) heuristic pass computing 9 JD-fit sub-scores (titles, tenure trajectory, etc.) and 23 behavior signals combined via geometric mean to prevent single-signal masking. Explicit honeypots and research-only profiles are dropped using logical rules (e.g., YOE vs. tenure mismatch). Stage 2 is an XGBRanker (LambdaMART) over the top 2000 heuristic candidates. Ranks 100K profiles in ~25s on CPU.
+
+# ============================================================================
+# Declarations
+# ============================================================================
+declarations:
+  read_submission_spec: true
+  code_is_original_work: true
+  no_collusion: true
+  honeypot_check_done: true
+  reproduction_tested: true

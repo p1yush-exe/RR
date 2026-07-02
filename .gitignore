@@ -8,6 +8,9 @@ venv/
 env/
 .env
 
+# Private submission answers
+answer.md
+
 # Data files — never push the massive candidate pools
 *.jsonl
 *.json.gz

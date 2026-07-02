@@ -160,9 +160,14 @@ def output_score(score):
 
 
 def process_candidates(input_path, output_path):
+    import time
+    start_time = time.time()
+    
     top_2000 = []
 
-    for candidate in iter_candidates(input_path):
+    print(f"Starting unified Phase 1 & Phase 2 pipeline...")
+    print(f"Reading from: {input_path}")
+    for count, candidate in enumerate(iter_candidates(input_path), 1):
         if is_honeypot(candidate):
             continue
 
@@ -222,12 +227,18 @@ def process_candidates(input_path, output_path):
             reasoning_str = generate_reasoning(memo, i)
             writer.writerow([cid, i, output_score(score), reasoning_str])
 
-    print(f"saved top 100 to {output_path}")
+    end_time = time.time()
+    elapsed = end_time - start_time
+    print(f"Successfully saved top 100 to {output_path}")
+    print(f"==================================================")
+    print(f"Pipeline Execution Complete!")
+    print(f"Reproducible Runtime Metric: {elapsed:.2f} seconds")
+    print(f"==================================================")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--candidates", required=True)
-    parser.add_argument("--out", required=True)
+    parser.add_argument("--candidates", default="candidates.jsonl", help="Path to candidates data")
+    parser.add_argument("--out", default="team_VictoryLap.csv", help="Path to output CSV")
     args = parser.parse_args()
     process_candidates(args.candidates, args.out)
