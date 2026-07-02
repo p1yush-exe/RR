@@ -1,0 +1,39 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.env
+
+# Data files (Do not push 100K candidates to Git!)
+*.jsonl
+*.jsonl.gz
+*.csv
+!sample_submission.csv
+sample_candidates.json
+
+# Generated model weights
+xgboost_model.json
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+
+# Documents
+*.docx
+*.md
+!README.md
+!strat.md
